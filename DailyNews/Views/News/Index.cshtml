@@ -1,0 +1,76 @@
+﻿@model List<News>
+
+<h2>So‘nggi Yangiliklar</h2>
+<div class="news-container">
+    @foreach (var item in Model)
+    {
+        <div class="news-item">
+            <h3><a href="@item.Link" target="_blank">@item.Title</a></h3>
+            <p>@item.Summary</p>
+            <!-- Show Date and Time -->
+            <span class="date-time">@item.PubDate.ToString("dd MMM yyyy HH:mm")</span>
+        </div>
+    }
+</div>
+
+<!-- Pagination Controls -->
+<div class="pagination">
+    @if (ViewBag.CurrentPage > 1)
+    {
+        <a href="?page=@(ViewBag.CurrentPage - 1)" class="btn">← Previous</a>
+    }
+
+    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+    {
+        <a href="?page=@i" class="btn @(ViewBag.CurrentPage == i ? "active" : "")">@i</a>
+    }
+
+    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+    {
+        <a href="?page=@(ViewBag.CurrentPage + 1)" class="btn">Next →</a>
+    }
+</div>
+
+<!-- Styling -->
+<style>
+    .news-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .news-item {
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    .date-time {
+        display: block;
+        color: #555;
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+
+    .pagination {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        text-decoration: none;
+        border: 1px solid #ddd;
+        background: #f1f1f1;
+        border-radius: 5px;
+    }
+
+        .btn.active {
+            background: #007bff;
+            color: white;
+        }
+</style>
+
+
